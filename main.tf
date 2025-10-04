@@ -7,7 +7,7 @@ resource "aws_ecr_repository" "repo" {
 }
 
 resource "aws_s3_bucket" "data_bucket" {
-  bucket = "your-bucket-name"
+  bucket = "Rablo-bucket"
   acl    = "private"
 }
 
@@ -16,9 +16,9 @@ resource "aws_db_instance" "rds" {
   engine               = "postgres"
   engine_version       = "13.7"
   instance_class       = "db.t3.micro"
-  name                 = "yourdbname"
-  username             = "yourdbuser"
-  password             = "yourdbpassword"
+  name                 = "Rablodb"
+  username             = "Rablodbuser"
+  password             = "123456"
   parameter_group_name = "default.postgres13"
   skip_final_snapshot  = true
 }
