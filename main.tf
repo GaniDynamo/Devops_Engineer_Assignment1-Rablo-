@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "your-region"
+  region = "us-east-1"
 }
 
 resource "aws_ecr_repository" "repo" {
@@ -7,7 +7,7 @@ resource "aws_ecr_repository" "repo" {
 }
 
 resource "aws_s3_bucket" "data_bucket" {
-  bucket = "Rablo-bucket"
+  bucket = "Rablo-bucket2804"
   acl    = "private"
 }
 
