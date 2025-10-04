@@ -7,22 +7,31 @@ resource "aws_ecr_repository" "repo" {
 }
 
 resource "aws_s3_bucket" "data_bucket" {
-  bucket = "Rablo-bucket2804"
-  acl    = "private"
+  bucket = "rablo-bucket-2804"
+}
+
+resource "aws_db_subnet_group" "rds_subnet_group" {
+  name       = "rablo-rds-subnet-group"
+  subnet_ids = [
+    "subnet-035a67384e2a5f234", # rablo-subnet-1
+    "subnet-0b786e7e19a702e5b"  # rablo-subnet-2
+  ]
+  description = "RDS subnet group for Rablo PostgreSQL DB"
 }
 
 resource "aws_db_instance" "rds" {
   allocated_storage    = 20
   engine               = "postgres"
-  engine_version       = "13.7"
+  engine_version       = "17.6"
   instance_class       = "db.t3.micro"
-  name                 = "Rablodb"
   username             = "Rablodbuser"
-  password             = "123456"
-  parameter_group_name = "default.postgres13"
+  password             = "Granadeaa12"
+  parameter_group_name = "default.postgres17"
   skip_final_snapshot  = true
+ 
+  # Reference the DB subnet group here
+  db_subnet_group_name = aws_db_subnet_group.rds_subnet_group.name
 }
-
 resource "aws_iam_role" "lambda_exec_role" {
   name = "lambda-exec-role"
   assume_role_policy = jsonencode({
