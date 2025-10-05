@@ -10,12 +10,11 @@ pipeline {
     // DO NOT use static credentials here; use Jenkins credentials binding in the steps below
   }
 
-  stages {
-    stage('Checkout') {
-      steps {
-        git 'https://github.com/GaniDynamo/Devops_Engineer_Assignment1-Rablo-.git'
-      }
-    }
+  stage('Checkout SCM') {
+  steps {
+    echo "Source code automatically checked out by SCM definition."
+  }
+}
 
     stage('Build Docker Image') {
       steps {
