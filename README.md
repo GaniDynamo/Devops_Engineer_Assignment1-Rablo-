@@ -51,18 +51,25 @@ Below are visual proofs confirming the end-to-end success of the CI/CD pipeline 
 <h3 align="center">1. Jenkins Successful Pipeline Execution</h3>
 
 This image confirms that all four stages—from infrastructure creation to the final deployment—completed successfully.
+<img width="1919" height="1031" alt="Screenshot 2025-10-07 230835" src="https://github.com/user-attachments/assets/0a6472f5-2a4f-4c42-94ff-e99aa857b38c" />
+
+
 
 <h3 align="center">2. ECR Repository Verification</h3>
 
 This shows the ECR repository was created by Terraform and the application image was successfully pushed by Docker in the pipeline.
 
+<img width="1919" height="629" alt="Screenshot 2025-10-07 231011" src="https://github.com/user-attachments/assets/6d91bc77-c74c-4044-886b-fa713e986166" />
+
 <h3 align="center">3. AWS Lambda Function Verification</h3>
 
 Proof that the container-based Lambda function was created, referencing the ECR image URI.
+<img width="1919" height="969" alt="Screenshot 2025-10-07 230907" src="https://github.com/user-attachments/assets/672009e6-1687-4d31-9708-5857c475c685" />
 
 <h3 align="center">4. Lambda Test Execution Output</h3>
 
 Output showing the Lambda function was tested and confirmed the S3 data processing and connection to RDS or Glue.
+<img width="1919" height="920" alt="Screenshot 2025-10-07 194851" src="https://github.com/user-attachments/assets/f3dd9d70-8bbb-41c6-b604-f7b723100ea9" />
 
 <h2>⚙️ Setup and Execution</h2>
 
