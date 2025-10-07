@@ -1,10 +1,9 @@
-DevOps Engineer Assignment 1: S3 to RDS/Glue Data Pipeline CI/CD
-This repository contains the solution for the DevOps Engineer Assignment, demonstrating a complete CI/CD pipeline for deploying a containerized data processing application to AWS.
+<H1>📦 DevOps Engineer Assignment 1: S3 to RDS/Glue Data Pipeline CI/CD</H1>
 
-The pipeline uses Jenkins to orchestrate Terraform for infrastructure provisioning and Docker/ECR for application deployment.
+This repository contains the complete solution for the DevOps Engineer Assignment, demonstrating a fully automated CI/CD pipeline for deploying a containerized data processing application to AWS using Jenkins and Terraform.
 
 🚀 Architecture and Process Flow
-The core architecture utilizes a decoupled approach to handle the circular dependency between ECR creation and Lambda deployment.
+The solution leverages a decoupled Terraform deployment within the Jenkins pipeline to successfully resolve the circular dependency where the AWS Lambda function requires an image that only the ECR repository (created by Terraform) can host.
 
 Stage
 
@@ -16,13 +15,13 @@ Description
 
 Terraform (Targeted Apply)
 
-Creates the non-dependent AWS resources: ECR Repository, S3 Bucket, IAM Role, and RDS Subnet Group.
+Creates the necessary AWS resources before the image build: ECR Repository, S3 Bucket, IAM Role, and RDS Subnet Group.
 
 2. Build & Push Image
 
 Docker / AWS CLI
 
-Authenticates with ECR, builds the Python application image, tags it, and pushes it to the ECR repository.
+Authenticates Docker with ECR, builds the Python application image, tags it (latest, build number), and pushes it to the ECR repository.
 
 3. Final Deployment
 
