@@ -44,9 +44,29 @@ IAM Role: lambda-exec-role-pipe1 (Lambda Execution Role)
 
 AWS Lambda: s3_to_rds_glue_lambda-pipe1 (Container-based application function)
 
+<h2>✅ Deployment Proof (Screenshots)</h2>
+
+Below are visual proofs confirming the end-to-end success of the CI/CD pipeline and the resulting infrastructure deployment.
+
+<h3 align="center">1. Jenkins Successful Pipeline Execution</h3>
+
+This image confirms that all four stages—from infrastructure creation to the final deployment—completed successfully.
+
+<h3 align="center">2. ECR Repository Verification</h3>
+
+This shows the ECR repository was created by Terraform and the application image was successfully pushed by Docker in the pipeline.
+
+<h3 align="center">3. AWS Lambda Function Verification</h3>
+
+Proof that the container-based Lambda function was created, referencing the ECR image URI.
+
+<h3 align="center">4. Lambda Test Execution Output</h3>
+
+Output showing the Lambda function was tested and confirmed the S3 data processing and connection to RDS or Glue.
+
 <h2>⚙️ Setup and Execution</h2>
 
-<h3>Prerequisites on Jenkins Agent</h3>
+<h3 align="left">Prerequisites on Jenkins Agent</h3>
 
 The Jenkins build agent must have the following tools installed and configured:
 
@@ -60,7 +80,7 @@ A pre-configured AWS IAM Role with permissions for ECR, Lambda, S3, RDS, and Glu
 
 An AWS Credentials entry in Jenkins named aws-credential-id for pipeline access.
 
-<h3>Running the Pipeline</h3>
+<h3 align="left">Running the Pipeline</h3>
 
 In the Jenkins dashboard, create a New Item and select the Pipeline project type.
 
