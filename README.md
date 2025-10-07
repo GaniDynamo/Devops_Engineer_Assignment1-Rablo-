@@ -4,106 +4,94 @@ This repository contains the complete solution for the DevOps Engineer Assignmen
 
 <h2>🚀 Architecture and Process Flow</h2>
 
-The solution leverages a decoupled Terraform deployment within the Jenkins pipeline to successfully resolve the circular dependency where the AWS Lambda function requires an image that only the ECR repository (created by Terraform) can host.
+The CI/CD solution, orchestrated by Jenkins, uses a decoupled Terraform deployment strategy to resolve the critical circular dependency between the ECR repository creation and the Lambda function deployment.
 
-Stage
+The pipeline is structured into four main stages:
 
-Tool
+Stage 1: Infra Prerequisites (Targeted Terraform Apply): Creates foundational AWS resources (ECR Repository, S3 Bucket, IAM Role, and RDS Subnet Group), intentionally skipping the dependent Lambda function.
 
-Description
+Stage 2: Authenticate with AWS and ECR: Performs Docker login authentication against the newly created ECR registry.
 
-1. Infra Prerequisites
+Stage 3: Build & Push Docker Image: Builds the application's container image, tags it, and pushes it to ECR.
 
-Terraform (Targeted Apply)
-
-Creates the necessary AWS resources before the image build: ECR Repository, S3 Bucket, IAM Role, and RDS Subnet Group.
-
-2. Build & Push Image
-
-Docker / AWS CLI
-
-Authenticates Docker with ECR, builds the Python application image, tags it (latest, build number), and pushes it to the ECR repository.
-
-3. Final Deployment
-
-Terraform (Full Apply)
-
-Runs the final deployment, creating the AWS Lambda function and referencing the image that is now available in ECR.
+Stage 4: Final Deployment (Full Terraform Apply): Executes the full Terraform configuration, which successfully creates the AWS Lambda function because its required ECR image is now available.
 
 <h2>🛠️ Repository Contents</h2>
 
-File
+The project relies on four core files:
 
-Purpose
+File Name
 
-Details
+Role
+
+Key Functionality
 
 Jenkinsfile
 
-CI/CD Pipeline
+CI/CD Orchestration
 
-Groovy script defining the 4-stage automated deployment process. Crucial for dependency resolution.
+Defines the multi-stage, dependency-aware pipeline execution logic (Groovy Script).
 
 main.tf
 
 Infrastructure as Code
 
-HCL definition for all AWS resources, including aws_ecr_repository.repo, aws_s3_bucket.data_bucket, aws_db_instance.rds, aws_iam_role.lambda_exec_role, and aws_lambda_function.my_lambda.
+Defines all AWS resources in HCL (ECR, RDS, Lambda, S3, IAM).
 
 s3_to_rds_glue.py
 
 Application Logic
 
-Python script to read from S3, attempt to insert data into PostgreSQL RDS, and fallback to writing to Glue Data Catalog upon failure.
+Python script to read from S3, attempt data insert to PostgreSQL RDS, and implement a fallback mechanism to Glue Data Catalog.
 
 Dockerfile
 
 Containerization
 
-Defines the image environment (python:3.9-slim), installs boto3 and psycopg2-binary dependencies, and packages the application script.
+Packages the Python application, installing necessary libraries (boto3, psycopg2-binary) onto a python:3.9-slim base image.
 
-<h2>☁️ AWS Resources Deployed</h2>
+<h2>☁️ AWS Resources Deployed (us-east-1)</h2>
 
-The Terraform configuration creates the following resources in the us-east-1 region:
+The Terraform configuration provisions the following key resources:
 
-ECR Repository: s3-to-rds-glue-pipe
+ECR Repository: s3-to-rds-glue-pipe (Container Image Host)
 
-S3 Bucket: rablo-bucket-pipe-2804
+S3 Bucket: rablo-bucket-pipe-2804 (Source Data Storage)
 
-RDS Subnet Group: rablo-rds-pipe1-subnet-group
+RDS Subnet Group: rablo-rds-pipe1-subnet-group (Required for RDS instance)
+
+RDS Instance: PostgreSQL database instance
 
 IAM Role: lambda-exec-role-pipe1 (Lambda Execution Role)
 
-AWS Lambda: s3_to_rds_glue_lambda-pipe1 (Container-based function)
-
-RDS Instance: PostgreSQL database instance.
+AWS Lambda: s3_to_rds_glue_lambda-pipe1 (Container-based application function)
 
 <h2>⚙️ Setup and Execution</h2>
 
-<h3>Prerequisites</h3>
+<h3>Prerequisites on Jenkins Agent</h3>
+
+The Jenkins build agent must have the following tools installed and configured:
 
 A running Jenkins instance.
 
-AWS CLI installed on the Jenkins agent.
+AWS CLI and Terraform CLI.
 
-Terraform CLI installed on the Jenkins agent.
+Docker installed and running.
 
-Docker installed on the Jenkins agent.
+A pre-configured AWS IAM Role with permissions for ECR, Lambda, S3, RDS, and Glue actions.
 
-An AWS IAM Role configured with necessary permissions (ECR, Lambda, S3, RDS, Glue).
-
-An AWS Credentials entry in Jenkins named aws-credential-id.
+An AWS Credentials entry in Jenkins named aws-credential-id for pipeline access.
 
 <h3>Running the Pipeline</h3>
 
-In Jenkins, create a New Item of type Pipeline.
+In the Jenkins dashboard, create a New Item and select the Pipeline project type.
 
-Configure the pipeline to use "Pipeline script from SCM" (Git).
+In the pipeline configuration, choose "Pipeline script from SCM" (Git).
 
 Set the Repository URL to: https://github.com/GaniDynamo/Devops_Engineer_Assignment1-Rablo-.git
 
-Set the Branch Specifier to main.
+Ensure the Branch Specifier is set to main.
 
-Save and click Build Now.
+Save the configuration and click Build Now.
 
-The Jenkins pipeline will automatically clone the repository and execute the four deployment stages defined in the Jenkinsfile.
+The Jenkins pipeline will automatically clone the repository and execute the four defined deployment stages, managing infrastructure and application deployment end-to-end.
