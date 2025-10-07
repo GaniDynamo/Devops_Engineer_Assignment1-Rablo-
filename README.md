@@ -18,37 +18,15 @@ Stage 4: Final Deployment (Full Terraform Apply): Executes the full Terraform co
 
 <h2>🛠️ Repository Contents</h2>
 
-The project relies on four core files:
+The project relies on four core files for infrastructure, application logic, and deployment:
 
-File Name
+Jenkinsfile (CI/CD Orchestration): This Groovy script defines the multi-stage, dependency-aware pipeline execution logic.
 
-Role
+main.tf (Infrastructure as Code): This HCL file defines all required AWS resources, including ECR, RDS, Lambda, S3, and IAM roles.
 
-Key Functionality
+s3_to_rds_glue.py (Application Logic): This Python script is designed to read data from S3, attempt a data insert to PostgreSQL RDS, and implement a fallback to Glue Data Catalog if the RDS operation is not possible.
 
-Jenkinsfile
-
-CI/CD Orchestration
-
-Defines the multi-stage, dependency-aware pipeline execution logic (Groovy Script).
-
-main.tf
-
-Infrastructure as Code
-
-Defines all AWS resources in HCL (ECR, RDS, Lambda, S3, IAM).
-
-s3_to_rds_glue.py
-
-Application Logic
-
-Python script to read from S3, attempt data insert to PostgreSQL RDS, and implement a fallback mechanism to Glue Data Catalog.
-
-Dockerfile
-
-Containerization
-
-Packages the Python application, installing necessary libraries (boto3, psycopg2-binary) onto a python:3.9-slim base image.
+Dockerfile (Containerization): This file packages the application, installing necessary Python libraries (boto3, psycopg2-binary) onto a python:3.9-slim base image.
 
 <h2>☁️ AWS Resources Deployed (us-east-1)</h2>
 
