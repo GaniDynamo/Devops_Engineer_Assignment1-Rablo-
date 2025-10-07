@@ -1,8 +1,9 @@
-<H1>📦 DevOps Engineer Assignment 1: S3 to RDS/Glue Data Pipeline CI/CD</H1>
+<h1>📦 DevOps Engineer Assignment 1: S3 to RDS/Glue Data Pipeline CI/CD</h1>
 
 This repository contains the complete solution for the DevOps Engineer Assignment, demonstrating a fully automated CI/CD pipeline for deploying a containerized data processing application to AWS using Jenkins and Terraform.
 
-🚀 Architecture and Process Flow
+<h2>🚀 Architecture and Process Flow</h2>
+
 The solution leverages a decoupled Terraform deployment within the Jenkins pipeline to successfully resolve the circular dependency where the AWS Lambda function requires an image that only the ECR repository (created by Terraform) can host.
 
 Stage
@@ -29,7 +30,8 @@ Terraform (Full Apply)
 
 Runs the final deployment, creating the AWS Lambda function and referencing the image that is now available in ECR.
 
-🛠️ Repository Contents
+<h2>🛠️ Repository Contents</h2>
+
 File
 
 Purpose
@@ -60,7 +62,8 @@ Containerization
 
 Defines the image environment (python:3.9-slim), installs boto3 and psycopg2-binary dependencies, and packages the application script.
 
-☁️ AWS Resources Deployed
+<h2>☁️ AWS Resources Deployed</h2>
+
 The Terraform configuration creates the following resources in the us-east-1 region:
 
 ECR Repository: s3-to-rds-glue-pipe
@@ -75,8 +78,10 @@ AWS Lambda: s3_to_rds_glue_lambda-pipe1 (Container-based function)
 
 RDS Instance: PostgreSQL database instance.
 
-⚙️ Setup and Execution
-Prerequisites
+<h2>⚙️ Setup and Execution</h2>
+
+<h3>Prerequisites</h3>
+
 A running Jenkins instance.
 
 AWS CLI installed on the Jenkins agent.
@@ -89,7 +94,8 @@ An AWS IAM Role configured with necessary permissions (ECR, Lambda, S3, RDS, Glu
 
 An AWS Credentials entry in Jenkins named aws-credential-id.
 
-Running the Pipeline
+<h3>Running the Pipeline</h3>
+
 In Jenkins, create a New Item of type Pipeline.
 
 Configure the pipeline to use "Pipeline script from SCM" (Git).
