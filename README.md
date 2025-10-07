@@ -100,3 +100,11 @@ Ensure the Branch Specifier is set to main.
 Save the configuration and click Build Now.
 
 The Jenkins pipeline will automatically clone the repository and execute the four defined deployment stages, managing infrastructure and application deployment end-to-end.
+IAM Roles Screenshot:
+<img width="1919" height="951" alt="Screenshot 2025-10-07 230950" src="https://github.com/user-attachments/assets/c4501b41-4a21-44f3-9853-76a77d1333e3" />
+DataBases Screenshots:
+<img width="1912" height="812" alt="Screenshot 2025-10-07 231343" src="https://github.com/user-attachments/assets/72960478-a49f-422b-aecf-76bc82c63cf9" />
+Subnet Groups Scrrenshot:
+<img width="1919" height="916" alt="Screenshot 2025-10-07 231827" src="https://github.com/user-attachments/assets/5f050a9d-dcb6-438d-97f1-3310731c896b" />
+Jenkins Pipeline Console Output:
+<img width="1919" height="978" alt="Screenshot 2025-10-07 230819" src="https://github.com/user-attachments/assets/de8aa6ed-d46e-4439-b449-955fe7763f58" />
