@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "data_bucket" {
 }
 
 resource "aws_db_subnet_group" "rds_subnet_group" {
-  name       = "rablo-rds-pipe-subnet-group"
+  name       = "rablo-rds-pipe1-subnet-group"
   subnet_ids = [
     "subnet-035a67384e2a5f234", # rablo-subnet-1
     "subnet-0b786e7e19a702e5b"  # rablo-subnet-2
@@ -33,7 +33,7 @@ resource "aws_db_instance" "rds" {
   db_subnet_group_name = aws_db_subnet_group.rds_subnet_group.name
 }
 resource "aws_iam_role" "lambda_exec_role" {
-  name = "lambda-exec-role-pipe"
+  name = "lambda-exec-role-pipe1"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -52,7 +52,7 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_policy" {
 }
 
 resource "aws_lambda_function" "my_lambda" {
-  function_name = "s3_to_rds_glue_lambda-pipe"
+  function_name = "s3_to_rds_glue_lambda-pipe1"
   package_type  = "Image"
   image_uri     = "${aws_ecr_repository.repo.repository_url}:latest"
   role          = aws_iam_role.lambda_exec_role.arn
