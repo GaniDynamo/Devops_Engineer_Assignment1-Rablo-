@@ -101,7 +101,7 @@ Save the configuration and click Build Now.
 
 The Jenkins pipeline will automatically clone the repository and execute the four defined deployment stages, managing infrastructure and application deployment end-to-end.
 
-<h4>IAM Roles ScreSnapshotenshot:</h4>
+<h4>IAM Roles Snapshot:</h4>
 <img width="1919" height="951" alt="Screenshot 2025-10-07 230950" src="https://github.com/user-attachments/assets/c4501b41-4a21-44f3-9853-76a77d1333e3" />
 
 <h5>Databases Snapshot:</h5>
